@@ -21,7 +21,9 @@ export default function SearchSideBar() {
         <div className='flex'>
           <button className='border w-full text-reg font-light rounded-l p-2'>$</button>
           <button className='border-r border-t border-b w-full text-reg font-light p-2'>$$</button>
-          <button className='border-r border-t border-b w-full text-reg font-light p-2 rounded-r'>$$$</button>
+          <button className='border-r border-t border-b w-full text-reg font-light p-2 rounded-r'>
+            $$$
+          </button>
         </div>
       </div>
     </div>
