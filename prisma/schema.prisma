@@ -27,6 +27,7 @@ model N13_Restaurant {
   cuisine       N13_Cuisine   @relation(fields: [cuisine_id], references: [id])
   created_at    DateTime      @default(now())
   updated_at    DateTime      @updatedAt
+  
 }
 
 model N13_Item{
