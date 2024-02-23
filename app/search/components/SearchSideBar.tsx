@@ -1,20 +1,37 @@
-export default function SearchSideBar() {
+import { N13_Cuisine, N13_Location } from '@prisma/client';
+
+export default function SearchSideBar({
+  location,
+  cuisine,
+}: {
+  location: N13_Location[];
+  cuisine: N13_Cuisine[];
+}) {
   return (
     <div className='w-1/5'>
       <div className='border-b pb-4'>
         <h1 className='mb-2'>Region</h1>
-        <p className='font-light text-reg'>Toronto</p>
-        <p className='font-light text-reg'>Ottawa</p>
-        <p className='font-light text-reg'>Montreal</p>
-        <p className='font-light text-reg'>Hamilton</p>
-        <p className='font-light text-reg'>Kingston</p>
-        <p className='font-light text-reg'>Niagara</p>
+        {location.length ? (
+          location.map((loc) => (
+            <p key={loc.id} className='font-light text-reg capitalize'>
+              {loc.name}
+            </p>
+          ))
+        ) : (
+          <p>loading...</p>
+        )}
       </div>
       <div className='border-b pb-4 mt-3'>
         <h1 className='mb-2'>Cuisine</h1>
-        <p className='font-light text-reg'>Mexican</p>
-        <p className='font-light text-reg'>Italian</p>
-        <p className='font-light text-reg'>Chinese</p>
+        {cuisine.length ? (
+          cuisine.map((c) => (
+            <p key={c.id} className='font-light text-reg capitalize'>
+              {c.name}
+            </p>
+          ))
+        ) : (
+          <p>loading...</p>
+        )}
       </div>
       <div className='mt-3 pb-4'>
         <h1 className='mb-2'>Price</h1>
