@@ -13,16 +13,16 @@ export default function Stars({ reviews }: { reviews: N13_Review[] }) {
 
     for (let i = 1; i <= 5; i++) {
       if (i <= rating) {
-        stars.push(fullStar);
+        stars.push({ key: i, value: fullStar });
       } else if (i - 0.5 <= rating) {
-        stars.push(halfStar);
+        stars.push({ key: i, value: halfStar });
       } else {
-        stars.push(emptyStar);
+        stars.push({ key: i, value: emptyStar });
       }
     }
 
     return stars.map((star) => {
-      return <Image src={star} alt='star' className='w-4 h-4 mr-1' />;
+      return <Image key={star.key} src={star.value} alt='star' className='w-4 h-4 mr-1' />;
     });
   };
 

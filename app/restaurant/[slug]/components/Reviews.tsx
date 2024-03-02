@@ -7,9 +7,7 @@ export default function Reviews({ reviews }: { reviews: N13_Review[] }) {
       <h1 className='font-bold text-3xl mt-10 mb-7 borber-b pb-5'>{`What ${reviews.length} ${
         reviews.length > 1 ? 'people are' : 'person is'
       } saying...`}</h1>
-      {reviews.map((review) => (
-        <Review review={review} />
-      ))}
+      {reviews.length && reviews.map((review) => <Review key={review.id} review={review} />)}
     </div>
   );
 }
