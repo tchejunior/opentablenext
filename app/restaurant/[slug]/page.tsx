@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Prisma, PrismaClient } from '@prisma/client';
+import { N13_Review, Prisma, PrismaClient } from '@prisma/client';
 
 import RestaurantNavBar from './components/RestaurantNavBar';
 import Title from './components/Title';
@@ -21,6 +21,7 @@ interface Restaurant {
   images: Prisma.JsonValue;
   description: string;
   slug: string;
+  reviews: N13_Review[];
 }
 
 const fetchRestaurantBySlug = async (slug: string): Promise<Restaurant> => {
@@ -34,6 +35,7 @@ const fetchRestaurantBySlug = async (slug: string): Promise<Restaurant> => {
       images: true,
       description: true,
       slug: true,
+      reviews: true,
     },
   });
 
@@ -52,10 +54,16 @@ export default async function RestaurantDetails({ params }: { params: { slug: st
       <div className='bg-white w-[70%] rounded p-3 shadow'>
         <RestaurantNavBar slug={restaurant.slug} />
         <Title name={restaurant.name} />
-        <Rating />
+        <Rating reviews={restaurant.reviews} />
         <Description description={restaurant.description} />
         <Images images={restaurant.images} />
-        <Reviews />
+        {restaurant.reviews.length ? (
+          <Reviews reviews={restaurant.reviews} />
+        ) : (
+          <div>
+            <h1 className='font-bold text-3xl mt-10 mb-7 borber-b pb-5'>No revies yet...</h1>
+          </div>
+        )}
       </div>
       <div className='w-[27%] relative text-reg'>
         <ReservationCard />

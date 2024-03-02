@@ -22,7 +22,11 @@ export default function SearchSideBar({
       label: '$',
       className: 'border w-full text-reg font-light text-center rounded-l p-2',
     },
-    { price: PRICE.REGULAR, label: '$$', className: 'border w-full text-reg font-light text-center p-2' },
+    {
+      price: PRICE.REGULAR,
+      label: '$$',
+      className: 'border w-full text-reg font-light text-center p-2',
+    },
     {
       price: PRICE.EXPENSIVE,
       label: '$$$',
@@ -76,6 +80,7 @@ export default function SearchSideBar({
           {prices.map(({ price, label, className }) => (
             <Link
               className={className}
+              key={`${price}-${label}`}
               href={{
                 pathname: '/search',
                 query: { ...searchParams, price },
