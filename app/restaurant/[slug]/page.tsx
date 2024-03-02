@@ -8,6 +8,7 @@ import Description from './components/Description';
 import Images from './components/Images';
 import Reviews from './components/Reviews';
 import ReservationCard from './components/ReservationCard';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   // https://stackoverflow.com/a/76224684/13264506
@@ -50,9 +51,8 @@ const fetchRestaurantBySlug = async (slug: string): Promise<Restaurant> => {
     },
   });
 
-  if (!restaurant) {
-    throw new Error('Restaurant not found');
-  }
+  // if (!restaurant) throw new Error(`Restaurant '${slug}' not found`);
+  if (!restaurant) notFound();
 
   return restaurant;
 };

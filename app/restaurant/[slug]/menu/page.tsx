@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 
 import RestaurantNavBar from '../components/RestaurantNavBar';
 import Menu from '../components/Menu';
+import { notFound } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Menu of Milesstone Grill | OpenTable',
@@ -18,7 +19,8 @@ const fetchRestaurantMenu = async (slug: string) => {
     },
   });
 
-  if (!restaurant) throw new Error(`Restaurant with slug ${slug} not found`);
+  // if (!restaurant) throw new Error(`Restaurant '${slug}' not found`);
+  if (!restaurant) notFound();
 
   return restaurant.items;
 };
