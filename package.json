@@ -10,6 +10,9 @@
     "prisma": "npx prisma db push"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.15.11",
     "@prisma/client": "^5.10.2",
     "next": "14.0.4",
     "react": "^18",
