@@ -9,9 +9,20 @@ import Images from './components/Images';
 import Reviews from './components/Reviews';
 import ReservationCard from './components/ReservationCard';
 
-export const metadata: Metadata = {
-  title: 'Milesstone Grill | OpenTable',
-};
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  // https://stackoverflow.com/a/76224684/13264506
+  // read route params
+  // const id = params.id;
+
+  // fetch data
+  // const product = await fetch(`/api/products/${id}`).then((res) => res.json());
+  const restaurant = await fetchRestaurantBySlug(params.slug);
+
+  // return a dynamic title
+  return {
+    title: `${restaurant.name} | OpenTable`,
+  };
+}
 
 const prisma = new PrismaClient();
 
