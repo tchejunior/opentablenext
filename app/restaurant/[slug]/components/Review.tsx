@@ -1,4 +1,4 @@
-import Stars from '@/components/Stars';
+import Stars from '@/app/components/Stars';
 import { N13_Review } from '@prisma/client';
 
 export default function Review({ review }: { review: N13_Review }) {

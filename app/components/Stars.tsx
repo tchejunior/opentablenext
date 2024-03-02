@@ -1,6 +1,6 @@
-import fullStar from '../public/icons/full-star.png';
-import halfStar from '../public/icons/half-star.png';
-import emptyStar from '../public/icons/empty-star.png';
+import fullStar from '../../public/icons/full-star.png';
+import halfStar from '../../public/icons/half-star.png';
+import emptyStar from '../../public/icons/empty-star.png';
 import Image from 'next/image';
 import { N13_Review } from '@prisma/client';
 import { calculateReviewRatingAvg } from '@/utils/calcReviewRatingAvg';

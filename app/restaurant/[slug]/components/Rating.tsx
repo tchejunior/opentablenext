@@ -1,4 +1,4 @@
-import Stars from '@/components/Stars';
+import Stars from '@/app/components/Stars';
 import { calculateReviewRatingAvg } from '@/utils/calcReviewRatingAvg';
 import { N13_Review } from '@prisma/client';
 

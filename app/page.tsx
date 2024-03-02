@@ -1,5 +1,5 @@
-import Header from '@/components/Header';
-import RestaurantCards from '@/components/RestaurantCards';
+import Header from '@/app/components/Header';
+import RestaurantCards from '@/app/components/RestaurantCards';
 import { PrismaClient, N13_Cuisine, N13_Location, PRICE, N13_Review } from '@prisma/client';
 
 export interface RestaurantCardType {

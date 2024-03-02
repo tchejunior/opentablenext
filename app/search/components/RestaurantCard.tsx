@@ -1,5 +1,5 @@
-import Price from '@/components/Price';
-import Stars from '@/components/Stars';
+import Price from '@/app/components/Price';
+import Stars from '@/app/components/Stars';
 // import Stars from '@/components/Stars';
 import { calculateReviewRatingAvg } from '@/utils/calcReviewRatingAvg';
 import { N13_Cuisine, N13_Location, N13_Review, PRICE } from '@prisma/client';
