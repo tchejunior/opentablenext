@@ -63,6 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
       ];
 
+      // Validate the fields
       validationSchema.forEach((schema) => {
         if (!schema.valid) {
           errors.push(schema.errorMessage);
@@ -75,8 +76,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         response.errorMessage = errors;
       } else {
         // No errors, create the user
+        // Create bcrypt hashed password
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        // Create the user in the DB
         await prisma.n13_User.create({
           data: {
             first_name: firstName,
@@ -88,10 +91,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
         });
 
+        // Define algorithm for the JWT
         const alg = 'HS256';
 
+        // Get the secret for the JWT from the environment variable
         const secret = new TextEncoder().encode(process.env.JWT_SECRET as string);
 
+        // Create the JWT with the email only
         response.token = await new jose.SignJWT({
           email,
         })
@@ -101,12 +107,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           .setExpirationTime('24h')
           .sign(secret);
 
-        response.returnCode = 200;
+        response.returnCode = 201;
         response.message.push(`User created successfully!`);
       }
     }
   } else {
-    // Handle any other HTTP method
+    // No other HTTP methods allowed
     response.returnCode = 405;
     response.errorMessage.push(`Method Not Allowed`);
   }
