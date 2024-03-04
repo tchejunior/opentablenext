@@ -98,7 +98,6 @@ model N13_Booking {
   booker_request    String
   restaurant_id     Int
   restaurant        N13_Restaurant         @relation(fields: [restaurant_id], references: [id])
-  // bookings          N13_BookingsOnTables[]
   tables            N13_BookingsOnTables[]
   created_at        DateTime               @default(now())
   updated_at        DateTime               @updatedAt
