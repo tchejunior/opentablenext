@@ -22,7 +22,16 @@ export default function Stars({ reviews }: { reviews: N13_Review[] }) {
     }
 
     return stars.map((star) => {
-      return <Image key={star.key} src={star.value} alt='star' className='w-4 h-4 mr-1' />;
+      return (
+        <Image
+          key={star.key}
+          src={star.value}
+          alt='star'
+          className='w-4 h-4 mr-1'
+          placeholder='blur'
+          blurDataURL={'../../public/icons/empty-star.png'}
+        />
+      );
     });
   };
 
