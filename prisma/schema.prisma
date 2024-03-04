@@ -11,24 +11,25 @@ datasource db {
 }
 
 model N13_Restaurant {
-  id          Int          @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   name        String
   main_image  String
   description String
   images      Json
   open_time   String
   close_time  String
-  slug        String       @unique
+  slug        String        @unique
   price       PRICE
   items       N13_Item[]
   location_id Int
-  location    N13_Location @relation(fields: [location_id], references: [id])
+  location    N13_Location  @relation(fields: [location_id], references: [id])
   cuisine_id  Int
-  cuisine     N13_Cuisine  @relation(fields: [cuisine_id], references: [id])
+  cuisine     N13_Cuisine   @relation(fields: [cuisine_id], references: [id])
   reviews     N13_Review[]
   tables      N13_Table[]
-  created_at  DateTime     @default(now())
-  updated_at  DateTime     @updatedAt
+  bookings    N13_Booking[]
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @updatedAt
 }
 
 model N13_Item {
@@ -85,13 +86,43 @@ model N13_User {
   updated_at DateTime     @updatedAt
 }
 
+model N13_Booking {
+  id                Int                    @id @default(autoincrement())
+  number_of_people  Int
+  booking_time      DateTime
+  booker_email      String
+  booker_phone      String
+  booker_first_name String
+  booker_last_name  String
+  booker_ocasion    String
+  booker_request    String
+  restaurant_id     Int
+  restaurant        N13_Restaurant         @relation(fields: [restaurant_id], references: [id])
+  // bookings          N13_BookingsOnTables[]
+  tables            N13_BookingsOnTables[]
+  created_at        DateTime               @default(now())
+  updated_at        DateTime               @updatedAt
+}
+
 model N13_Table {
-  id            Int            @id @default(autoincrement())
-  restaurant_id Int
-  restaurant    N13_Restaurant @relation(fields: [restaurant_id], references: [id])
+  id            Int                    @id @default(autoincrement())
   seats         Int
-  created_at    DateTime       @default(now())
-  updated_at    DateTime       @updatedAt
+  restaurant_id Int
+  restaurant    N13_Restaurant         @relation(fields: [restaurant_id], references: [id])
+  bookings      N13_BookingsOnTables[]
+  created_at    DateTime               @default(now())
+  updated_at    DateTime               @updatedAt
+}
+
+model N13_BookingsOnTables {
+  booking_id Int
+  booking    N13_Booking @relation(fields: [booking_id], references: [id])
+  table_id   Int
+  table      N13_Table   @relation(fields: [table_id], references: [id])
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
+
+  @@id([booking_id, table_id])
 }
 
 enum PRICE {
