@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma": "npx prisma db push"
+    "prisma": "npx prisma db push",
+    "prismav": "npx prisma studio"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -15,8 +16,6 @@
     "@mui/material": "^5.15.11",
     "@mui/material-next": "^6.0.0-alpha.124",
     "@prisma/client": "^5.10.2",
-    "@types/bcrypt": "^5.0.2",
-    "@types/jsonwebtoken": "^9.0.6",
     "axios": "^1.6.7",
     "bcrypt": "^5.1.1",
     "cookies-next": "^4.1.1",
@@ -24,10 +23,14 @@
     "jsonwebtoken": "^9.0.2",
     "next": "14.0.4",
     "react": "^18",
+    "react-datepicker": "^6.2.0",
     "react-dom": "^18",
     "validator": "^13.11.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/react-datepicker": "^6.0.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
