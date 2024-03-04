@@ -4,10 +4,11 @@ import bcrypt from 'bcrypt';
 import * as jose from 'jose';
 
 import validator from 'validator';
+import { setCookie } from 'cookies-next';
 
 interface Response {
   returnCode: number;
-  message: string[];
+  message: any[];
   errorMessage: string[];
   token: string;
 }
@@ -57,6 +58,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (userWithEmail) {
         // The user exists, check the password
         const isMatch = await bcrypt.compare(password, userWithEmail.password);
+        userWithEmail.password = 'hidden for security reasons';
 
         if (isMatch) {
           // Password check passed, create a JWT
@@ -76,8 +78,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             .setExpirationTime('24h')
             .sign(secret);
 
+          setCookie('jwt417', response.token, {
+            req,
+            res,
+            // maxAge: 60 * 60 * 24, // 24 hours - 86400 seconds
+            maxAge: 60 * 60 * 24 * 20, // 30 days - 2592000 seconds
+            // Copilot auto filled the following options
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            path: '/',
+          });
+
           response.returnCode = 200;
           response.message.push(`User logged in successfully!`);
+          response.message.push({
+            firstName: userWithEmail.first_name,
+            lastName: userWithEmail.last_name,
+            email: userWithEmail.email,
+            phone: userWithEmail.phone,
+            city: userWithEmail.city,
+          });
         } else {
           // The password is invalid
           response.returnCode = 401;

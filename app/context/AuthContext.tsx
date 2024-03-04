@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useState } from 'react';
+import { createContext, useState, Dispatch, SetStateAction } from 'react';
 
 interface User {
   firstName: string;
@@ -12,12 +12,12 @@ interface User {
 
 interface State {
   loading: Boolean;
-  data: string | null;
-  error: User | null;
+  data: User | null;
+  error: string | null;
 }
 
 interface AuthState extends State {
-  setAuthState: React.Dispatch<React.SetStateAction<State>>;
+  setAuthState: Dispatch<SetStateAction<State>>;
 }
 
 export const AuthenticationContext = createContext<AuthState>({
