@@ -85,16 +85,7 @@ const useAuth = () => {
     } catch (error) {}
   };
 
-  const getMe = async () => {
-    try {
-      const response = await axios.post('/api/auth/me');
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  return { signIn, signUp, signOut, getMe };
+  return { signIn, signUp, signOut };
 };
 
 export default useAuth;

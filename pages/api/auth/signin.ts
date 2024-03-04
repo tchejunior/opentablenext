@@ -6,9 +6,19 @@ import * as jose from 'jose';
 import validator from 'validator';
 import { setCookie } from 'cookies-next';
 
+interface User {
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  city: string;
+  password?: string;
+}
+
 interface Response {
   returnCode: number;
   message: any[];
+  user: User;
   errorMessage: string[];
   token: string;
 }
@@ -16,7 +26,13 @@ interface Response {
 const prisma = new PrismaClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const response: Response = { returnCode: 0, message: [], errorMessage: [], token: '' };
+  const response: Response = {
+    returnCode: 0,
+    message: [],
+    errorMessage: [],
+    token: '',
+    user: {} as User,
+  };
 
   if (req.method === 'POST') {
     // Des-structure the request body
@@ -84,7 +100,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             // maxAge: 60 * 60 * 24, // 24 hours - 86400 seconds
             maxAge: 60 * 60 * 24 * 20, // 30 days - 2592000 seconds
             // Copilot auto filled the following options
-            httpOnly: true,
+            // httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict',
             path: '/',
@@ -92,13 +108,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
           response.returnCode = 200;
           response.message.push(`User logged in successfully!`);
-          response.message.push({
+          response.user = {
             firstName: userWithEmail.first_name,
             lastName: userWithEmail.last_name,
             email: userWithEmail.email,
             phone: userWithEmail.phone,
             city: userWithEmail.city,
-          });
+          };
         } else {
           // The password is invalid
           response.returnCode = 401;

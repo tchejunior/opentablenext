@@ -4,9 +4,18 @@ import { NextApiRequest, NextApiResponse } from 'next';
 // import * as jose from 'jose';
 import jwt from 'jsonwebtoken';
 
+interface User {
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  city: string;
+  password?: string;
+}
 interface Response {
   returnCode: number;
   message: any[];
+  user: User;
   errorMessage: string[];
   token: string;
 }
@@ -14,7 +23,13 @@ interface Response {
 const prisma = new PrismaClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const response: Response = { returnCode: 0, message: [], errorMessage: [], token: '' };
+  const response: Response = {
+    returnCode: 0,
+    message: [],
+    errorMessage: [],
+    token: '',
+    user: {} as User,
+  };
 
   if (req.method === 'POST') {
     // Get authorization token
@@ -63,10 +78,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
         });
 
-        response.returnCode = 200;
-        response.message.push(`User is authenticated`);
-        response.message.push(user);
-        response.token = token;
+        if (!user) {
+          // No user found
+          response.returnCode = 401;
+          response.errorMessage.push('Unauthorized request (No user found)');
+        } else {
+          response.returnCode = 200;
+          response.message.push(`User is authenticated`);
+          response.user = {
+            firstName: user.first_name,
+            lastName: user.last_name,
+            email: user.email,
+            phone: user.phone,
+            city: user.city,
+          };
+          response.token = token;
+        }
       } else {
         // No email in token
         response.returnCode = 401;

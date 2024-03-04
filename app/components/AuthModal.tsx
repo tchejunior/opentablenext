@@ -95,7 +95,10 @@ export default function AuthModal({ isSignIn }: { isSignIn: boolean }) {
           {/* <div className='p-2 h-[600px]'> */}
           <div className='p-2'>
             <Alert severity='error' className='mb-5' style={{ display: error ? '' : 'none' }}>
-              {error && String(error).split(',').map((err: string, i: number) => <p key={i}>{err}</p>)}
+              {error &&
+                String(error)
+                  .split(',')
+                  .map((err: string, i: number) => <p key={i}>{err}</p>)}
             </Alert>
             <div className='uppercase font-bold text-center pb-2 border-b mb-2'>
               <p className='text-sm'>{renderContent('Sign in', 'Create account')}</p>
