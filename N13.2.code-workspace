@@ -1,0 +1,18 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "terminal.integrated.env.windows": {
+      "PATH": "c:/Temp/node-v20.11.0-win-x64;${env:PATH}"
+    },
+    "css.lint.unknownAtRules": "ignore",
+    "prettier.printWidth": 100,
+    "files.defaultLanguage": "tsx",
+    "editor.tabSize": 2,
+    "files.trimTrailingWhitespace": true,
+    "editor.formatOnSave": true
+  }
+}
